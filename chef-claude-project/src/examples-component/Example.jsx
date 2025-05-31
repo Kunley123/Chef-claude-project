@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import avatar from '../assets/avatar.png'
 import starEmpty from '../assets/star-empty.png'
 import starFilled from '../assets/star-filled.png'
+import ReactDom from 'react-dom/client'
 
 export default function Example() {
 
@@ -73,7 +74,7 @@ export default function Example() {
         setContact(prevContact => {
             return {
                 ...prevContact,
-                isFavorite: !prevContact.isFavorite,
+                isFavorite: !prevContact.isFavorite
             }
         }
 
@@ -109,6 +110,8 @@ export default function Example() {
                 <p>{contact.phone}</p>
                 <p>{contact.email}</p>
             </div>
+
+
         </>
 
     )

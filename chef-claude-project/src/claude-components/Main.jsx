@@ -4,7 +4,7 @@ export default function Main() {
 
 
 
-    const [ingredients, SetMyIngredients] = useState(["Chicken", "Oregano", "Tomato"])
+    const [ingredients, SetMyIngredients] = useState([])
     const ingredientsElement = ingredients.map(ingredient => {
         return (
             <li key={ingredient}> {ingredient}</li>
@@ -15,10 +15,8 @@ export default function Main() {
 
 
 
-    function Submit(event) {
+    function addIngredient(formData) {
         SetMyIngredients(prevIngredients => [...prevIngredients, newIngredient])
-        event.preventDefault()
-        const formData = new FormData(event.currentTarget)
         const newIngredient = formData.get("ingredient")
     }
 
@@ -27,7 +25,7 @@ export default function Main() {
 
     return (
         <main>
-            <form onSubmit={Submit} className="add-ingredient-form">
+            <form action={addIngredient} className="add-ingredient-form">
                 <input type="text" placeholder="e.g. oregano" aria-label="Add ingredient" name="ingredient" />
                 <button>
                     Add ingredient
