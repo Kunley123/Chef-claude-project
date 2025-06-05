@@ -81,6 +81,8 @@ export default function Example() {
         )
     }
 
+    const [unreadMessages, setUnreadMessages] = useState(["a", "b"])
+
     return (
         <>
             <h1 className="title">Is state important to know</h1>
@@ -111,7 +113,17 @@ export default function Example() {
                 <p>{contact.email}</p>
             </div>
 
+            <div>
+                {unreadMessages.length > 1 && <h1>You have {unreadMessages.length} unread messages!</h1>}
+            </div>
 
+            <div>
+                {unreadMessages.length === 1 && <h1>You have {unreadMessages.length} unread message!</h1>}
+            </div>
+
+            <div>
+                {unreadMessages.length === 0 && <h1>You are all caught up</h1>}
+            </div>
         </>
 
     )

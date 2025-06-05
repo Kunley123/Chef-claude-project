@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import avatar from '../assets/avatar.png'
-import starEmpty from '../assets/star-empty.png'
-import starFilled from '../assets/star-filled.png'
+import Stars from './Stars'
 
 export default function Practise() {
     const [Contacts, setContacts] = useState({
@@ -12,7 +11,7 @@ export default function Practise() {
         isFavorite: true
     })
 
-    let starIcon = Contacts.isFavorite ? starFilled : starEmpty
+
 
     function toggleFavorite() {
         setContacts(prevContact => {
@@ -31,9 +30,7 @@ export default function Practise() {
             </article>
 
             <div>
-                <button onClick={toggleFavorite} className="star-button">
-                    <img src={starIcon} />
-                </button>
+                <Stars isFilled={Contacts.isFavorite} handleClick={toggleFavorite} />
 
                 <h2>{Contacts.firstName} {Contacts.lastName}</h2>
                 <p>{Contacts.phone}</p>
