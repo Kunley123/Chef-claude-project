@@ -1,24 +1,21 @@
 import { useState } from 'react'
+import IngredientsList from './IngredientList.jsx'
+import ClaudeRecipe from './ClaudeRecipe.jsx'
+import { getRecipeFromMistral } from './ai.js'
 
 export default function Main() {
 
+    const [ingredients, SetMyIngredients] = useState(["rice", "chicken", "onion", "garlic", "tomato"]);
 
+    const [recipe, setRecipe] = useState("");
 
-    const [ingredients, SetMyIngredients] = useState([])
+    async function getRecipe() {
+        // setRecipeShown(prevShown => !prevShown)
+        // since we are getting the recipe from AI we dont need to toggle the button 
 
-    const [recipeShown, setRecipeShown] = useState(false);
-
-    function toggleRecipeShown() {
-        setRecipeShown(prevShown => !prevShown)
+        const recipeMarkdown = await getRecipeFromMistral(ingredients)
+        setRecipe(recipeMarkdown)
     }
-
-    const ingredientsElement = ingredients.map(ingredient => {
-        return (
-            <li key={ingredient}> {ingredient}</li>
-        )
-    }
-
-    )
 
 
 
@@ -37,21 +34,10 @@ export default function Main() {
                 </button>
             </form>
 
-            {ingredients.length > 0 && <section>
-                <h2>Ingredient on hand:</h2>
-                <ul>
-                    {ingredientsElement}
-                </ul>
-                {ingredients.length > 3 && <div className="get-recipe-container">
-                    <div>
-                        <h3>Ready for a recipe</h3>
-                        <p>Generate a recipe from your list of ingredient.</p>
-                    </div>
-                    <button onClick={toggleRecipeShown}>Get a recipe</button>
-                </div>}
-            </section>}
+            {ingredients.length > 0 && <IngredientsList ingredients={ingredients}
+                getRecipe={getRecipe} />}
 
-
+            {recipe && <ClaudeRecipe recipe={recipe} />}
         </main>
     )
 }
